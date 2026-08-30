@@ -6,8 +6,8 @@ $ErrorActionPreference = 'Stop'
 
 Write-Host "Setting up agent stack in: $Target"
 
-if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
-    throw "GitHub CLI (gh) is not installed or not in PATH. Install/login to gh first."
+if (-not (Get-Command git -ErrorAction SilentlyContinue)) {
+    throw "Git is not installed or not in PATH. Install Git for Windows, reopen PowerShell, and run this script again."
 }
 
 New-Item -ItemType Directory -Force -Path $Target | Out-Null
@@ -48,8 +48,9 @@ foreach ($repo in $repos) {
         continue
     }
 
+    $url = "https://github.com/antoniojmiranda82-cyberdev/$repo.git"
     Write-Host "CLONE $repo"
-    gh repo clone "antoniojmiranda82-cyberdev/$repo" $dest
+    git clone $url $dest
 }
 
 Write-Host ""
